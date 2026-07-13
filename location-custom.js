@@ -862,7 +862,7 @@
 
   function resolveConfigUrl(args) {
     args = args || {};
-    var direct = String(args.configUrl || args.cfg || args.url || "").trim();
+    var direct = String(args.configUrl || args.config || args.cfg || args.url || "").trim();
     if (direct) {
       return direct;
     }

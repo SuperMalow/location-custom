@@ -13,7 +13,7 @@ altitude = input,"530",tag=海拔(米),desc=目标海拔
 address = input,"",tag=地址搜索,desc=填地名；cron 每5分钟联网解析
 configHost = input,"",tag=配置服务器,desc=不要末尾斜杠
 configToken = input,"",tag=配置Token,desc=必填才能读 loc.json（与 configUrl 二选一）
-configUrl = input,"",tag=远程配置URL,desc=完整 loc.json 地址；与上两项二选一
+configUrl = input,"https://loc.shengwen.icu/pub.json",tag=远程配置URL,desc=完整 loc.json / pub.json 地址；与上两项二选一
 debug = switch,true,tag=调试日志,desc=建议开启，Loon 日志搜 location-custom
 
 [Script]
