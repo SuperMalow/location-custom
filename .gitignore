@@ -1,0 +1,3 @@
+
+# Local wrangler overrides (KV ids, etc.)
+location-picker/worker/wrangler.local.jsonc
