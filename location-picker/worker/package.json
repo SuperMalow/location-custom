@@ -1,5 +1,5 @@
 {
-  "name": "ios-location-picker-worker",
+  "name": "location-custom-worker",
   "private": true,
   "type": "module",
   "scripts": {

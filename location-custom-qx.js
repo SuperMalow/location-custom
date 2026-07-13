@@ -379,10 +379,10 @@
         }
         var responseBytes = rawBuf instanceof Uint8Array ? rawBuf : new Uint8Array(rawBuf);
         if (responseBytes.length < 2) { $done({}); return; }
-        if (config.debug) console.log("Location spoofer QX response: " + responseBytes.length + " bytes, head=" + hexPreview(responseBytes, 32));
+        if (config.debug) console.log("location-custom QX response: " + responseBytes.length + " bytes, head=" + hexPreview(responseBytes, 32));
         var result = spoofAppleResponse(responseBytes, config);
-        if (config.debug) console.log("Location spoofer patched " + result.wifiCount + " wifi, " + result.cellCount + " cell, kind=" + result.kind + ", response=" + result.response.length + " bytes");
-        if (config.debug) console.log("Location spoofer locations: " + patchedPayloadSummary(result.payload));
+        if (config.debug) console.log("location-custom patched " + result.wifiCount + " wifi, " + result.cellCount + " cell, kind=" + result.kind + ", response=" + result.response.length + " bytes");
+        if (config.debug) console.log("location-custom locations: " + patchedPayloadSummary(result.payload));
         // QX: 二进制改后响应必须用 $done({bodyBytes: ArrayBuffer}) 回写
         $done({
           bodyBytes: result.response.buffer.slice(
@@ -391,7 +391,7 @@
           )
         });
       } catch (err) {
-        if (config.debug) console.log("Location spoofer failed: " + err.message);
+        if (config.debug) console.log("location-custom failed: " + err.message);
         $done({});
       }
     } else {

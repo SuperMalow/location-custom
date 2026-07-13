@@ -1,5 +1,5 @@
 /**
- * iOS Location Picker — Cloudflare Worker
+ * location-custom — Cloudflare Worker 地图选点
  *
  * API（与 location-picker/server.js 兼容）：
  *   GET  /loc.json?token=   → 读取坐标 JSON（Loon / Shadowrocket configUrl）

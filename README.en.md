@@ -1,23 +1,20 @@
-# iOS Location Spoofer
+# location-custom
 
 **English** · [中文](README.md)
 
-Use the HTTPS-decryption (MITM) feature of a proxy app to trick Apple's location service — and therefore Apple Maps — into placing your iPhone anywhere in the world.
+Personal repository: use a proxy app's HTTPS decryption (MITM) to rewrite Apple location replies and place the iPhone at chosen coordinates.
 
-> 📖 **New here?** The step-by-step walkthrough is Chinese-only for now → [使用教程.md](使用教程.md) (install, configure, verify, and troubleshooting).
+Repo: https://github.com/SuperMalow/location-custom
 
-## Credits
+> 📖 **New here?** Step-by-step walkthrough (Chinese) → [使用教程.md](使用教程.md).
 
-This project builds on the core research of [acheong08/ios-location-spoofer](https://github.com/acheong08/ios-location-spoofer). The original is a standalone iOS app written in Go that spoofs location with a self-hosted VPN + MITM proxy.
+## Features
 
-This repo re-implements that core logic in JavaScript and adapts it to five proxy platforms — Shadowrocket, Surge, Loon, Quantumult X, and Stash — so there's nothing to compile and no developer account required. Import and go.
-
-### What this port adds over the original
-
-- **Multi-platform support** — from a single iOS app to five proxy apps.
-- **Cell-tower coordinate rewriting** — the Go original only rewrote Wi-Fi hotspot coordinates; the JS version also rewrites CellTower coordinates (fields 22/24).
-- **Multiple response-format compatibility** — auto-detects Apple's response envelope (ARPC / synthetic / marker / bare) so the rewritten payload is still accepted by iOS.
-- **Motion-state spoofing** — also rewrites `motionActivityType` and `motionActivityConfidence` to reduce the chance of detection.
+- **Multi-platform** — Shadowrocket, Surge, Loon, Quantumult X, Stash; no compile step, no developer account
+- **Cell-tower rewriting** — Wi-Fi and CellTower coordinates (fields 22/24)
+- **Response-format compatibility** — ARPC / synthetic / marker / bare
+- **Motion-state spoofing** — rewrites `motionActivityType` / `motionActivityConfidence`
+- **Optional map picker** — `location-picker/` web UI with remote `configUrl`
 
 ## How it works
 
@@ -29,13 +26,11 @@ This project intercepts Apple's reply on the way back and rewrites every coordin
 
 | App | File | How to import | Status |
 |-----|------|---------------|--------|
-| Shadowrocket | `ios-location-spoofer.sgmodule` | Config → top-right `+` | ✅ Verified |
-| Surge | `ios-location-spoofer-surge.sgmodule` | Home → Modules → Install New Module | ✅ Verified |
-| Loon | `ios-location-spoofer.lnplugin` | Settings → Plugins → Add Plugin | ✅ Verified |
-| Quantumult X | `ios-location-spoofer.snippet` | Settings → Rewrite → Add | 🟡 Untested |
-| Stash | `ios-location-spoofer.stoverride` | Override → Install Override | ✅ Verified |
-
-> Tested it? Please report results in Issues. If something doesn't work, PRs are welcome — at minimum include **which app, which version, which iOS, and the raw error log**.
+| Shadowrocket | `location-custom.sgmodule` | Config → top-right `+` | ✅ Verified |
+| Surge | `location-custom-surge.sgmodule` | Home → Modules → Install New Module | ✅ Verified |
+| Loon | `location-custom.lnplugin` | Settings → Plugins → Add Plugin | ✅ Verified |
+| Quantumult X | `location-custom.snippet` | Settings → Rewrite → Add | 🟡 Untested |
+| Stash | `location-custom.stoverride` | Override → Install Override | ✅ Verified |
 
 ## Usage
 
@@ -47,11 +42,11 @@ This project intercepts Apple's reply on the way back and rewrites every coordin
 
 ### Loon notes
 
-1. After importing `ios-location-spoofer.lnplugin`, open the plugin config page under **Settings → Plugins**.
+1. After importing `location-custom.lnplugin`, open the plugin config page under **Settings → Plugins**.
 2. You can enter **latitude / longitude** directly. **Address search** is resolved and cached by a cron task that runs every 15 minutes (for the first run, enter coordinates directly or save an address and wait one cron cycle).
 3. You must enable Loon's **MITM** and trust the certificate, and the four domains in the plugin's `[mitm]` block must be active.
 4. The plugin includes a **Prepare** request script (sets `Accept-Encoding: identity` to avoid gzip-induced `zip decompress error` / script timeouts).
-5. After changing coordinates, toggle Location Services off/on. For debugging, enable **debug logging** and search Loon's log for `Location spoofer`.
+5. After changing coordinates, toggle Location Services off/on. For debugging, enable **debug logging** and search Loon's log for `location-custom`.
 
 > If the log shows `Evaluate script timeout` or `zip decompress error:-3`: update the plugin and reload Loon, and confirm all three scripts (Prepare / Response / Geocode cron) are enabled.
 
@@ -77,17 +72,17 @@ latitude=39.9042&longitude=116.4074
 ## File map
 
 ```
-ios-location-spoofer.sgmodule       # Shadowrocket
-ios-location-spoofer-surge.sgmodule # Surge
-ios-location-spoofer.lnplugin       # Loon
-ios-location-spoofer.snippet        # Quantumult X
-ios-location-spoofer.stoverride     # Stash
-location-spoofer.js                 # Core script (shared by four platforms)
-location-spoofer-qx.js              # Quantumult X-specific
-location-spoofer-config.json        # Config sample
-使用教程.md                         # Step-by-step tutorial (Chinese)
-location-picker/                    # Optional: web map picker (Node or Cloudflare Worker)
-location-picker/worker/             # Cloudflare Worker version (no VPS; supports Loon configUrl)
+location-custom.sgmodule        # Shadowrocket
+location-custom-surge.sgmodule  # Surge
+location-custom.lnplugin        # Loon
+location-custom.snippet         # Quantumult X
+location-custom.stoverride      # Stash
+location-custom.js              # Core script (shared by four platforms)
+location-custom-qx.js           # Quantumult X-specific
+location-custom-config.json     # Config sample
+使用教程.md                     # Step-by-step tutorial (Chinese)
+location-picker/                # Optional: web map picker (Node or Cloudflare Worker)
+location-picker/worker/         # Cloudflare Worker version (no VPS; supports Loon configUrl)
 ```
 
 ## Optional: web map location picker
@@ -107,10 +102,6 @@ Loon plugin **remote config URL** example:
 ```
 https://your-worker.workers.dev/loc.json?token=YOUR_TOKEN
 ```
-
-## Community
-
-This project welcomes review and feedback from the LINUX DO community: [LINUX DO](https://linux.do)
 
 ## location-picker server configuration
 

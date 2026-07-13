@@ -47,20 +47,20 @@ npx wrangler secret put TOKEN
 npm run deploy
 ```
 
-记下输出的地址，例如 `https://ios-location-picker.你的账号.workers.dev`。
+记下输出的地址，例如 `https://location-custom-picker.你的账号.workers.dev`。
 
 ## Loon 插件配置
 
-Loon → 设置 → 插件 → iOS Location Spoofer → **远程配置 URL**：
+Loon → 设置 → 插件 → location-custom → **远程配置 URL**：
 
 ```
-https://ios-location-picker.你的账号.workers.dev/loc.json?token=你的TOKEN
+https://location-custom-picker.你的账号.workers.dev/loc.json?token=你的TOKEN
 ```
 
 保存后，在 iPhone 浏览器打开地图页：
 
 ```
-https://ios-location-picker.你的账号.workers.dev/?token=你的TOKEN
+https://location-custom-picker.你的账号.workers.dev/?token=你的TOKEN
 ```
 
 点地图 → **保存定位** → 关开 iPhone 定位服务生效（Loon 约 60 秒内刷新缓存）。
@@ -70,7 +70,7 @@ https://ios-location-picker.你的账号.workers.dev/?token=你的TOKEN
 模块 `argument=` 末尾追加：
 
 ```
-&configUrl=https://ios-location-picker.你的账号.workers.dev/loc.json?token=你的TOKEN
+&configUrl=https://location-custom-picker.你的账号.workers.dev/loc.json?token=你的TOKEN
 ```
 
 ## 自定义域名（可选）

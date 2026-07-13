@@ -49,7 +49,7 @@ Worker
 5. Worker 名字可以填：
 
 ```text
-ios-location-picker
+location-custom-picker
 ```
 
 6. 创建后进入 Worker，点击：
@@ -202,13 +202,13 @@ TOKEN
 假设 Worker 地址是：
 
 ```text
-https://ios-location-picker.你的账号.workers.dev
+https://location-custom-picker.你的账号.workers.dev
 ```
 
 打开：
 
 ```text
-https://ios-location-picker.你的账号.workers.dev/health
+https://location-custom-picker.你的账号.workers.dev/health
 ```
 
 必须看到：
@@ -319,14 +319,14 @@ https://myloc.example.com/health
 如果没有自定义域名，就使用 Worker 地址：
 
 ```text
-&configUrl=https://ios-location-picker.你的账号.workers.dev/loc.json?token=你的TOKEN
+&configUrl=https://location-custom-picker.你的账号.workers.dev/loc.json?token=你的TOKEN
 ```
 
 完整示例：
 
 ```ini
 [Script]
-iOS Location Spoofer = type=http-response,pattern=^https?:\/\/(?:gs-loc(?:-cn)?\.apple\.com|bluedot\.is\.autonavi\.com(?:\.gds\.alibabadns\.com)?)\/clls\/wloc(?:\?.*)?$,requires-body=1,binary-body-mode=1,max-size=1048576,timeout=10,script-path=https://raw.githubusercontent.com/mekos2772/ios-location-spoofer/main/location-spoofer.js,argument=mode=response&latitude=37.3349&longitude=-122.00902&horizontalAccuracy=39&verticalAccuracy=1000&altitude=530&debug=false&configUrl=https://你的域名/loc.json?token=你的TOKEN
+location-custom = type=http-response,pattern=^https?:\/\/(?:gs-loc(?:-cn)?\.apple\.com|bluedot\.is\.autonavi\.com(?:\.gds\.alibabadns\.com)?)\/clls\/wloc(?:\?.*)?$,requires-body=1,binary-body-mode=1,max-size=1048576,timeout=10,script-path=https://raw.githubusercontent.com/SuperMalow/location-custom/main/location-custom.js,argument=mode=response&latitude=37.3349&longitude=-122.00902&horizontalAccuracy=39&verticalAccuracy=1000&altitude=530&debug=false&configUrl=https://你的域名/loc.json?token=你的TOKEN
 
 [MITM]
 hostname = %APPEND% gs-loc.apple.com, gs-loc-cn.apple.com, bluedot.is.autonavi.com, bluedot.is.autonavi.com.gds.alibabadns.com

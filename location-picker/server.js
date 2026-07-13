@@ -49,7 +49,7 @@ function safeEqual(a, b) {
   return crypto.timingSafeEqual(ab, bb);
 }
 
-// 字段名/默认值与 location-spoofer.js 的 DEFAULT_CONFIG 对齐
+// 字段名/默认值与 location-custom.js 的 DEFAULT_CONFIG 对齐
 const DEFAULT = {
   enabled: true,          // false = 脚本放行原始响应（恢复真实定位）
   latitude: 37.3349,
